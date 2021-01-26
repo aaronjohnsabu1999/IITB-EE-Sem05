@@ -1,0 +1,78 @@
+#include <hidef.h>           /* common defines and macros */
+#include "derivative.h"      /* derivative-specific definitions */
+
+int UDATA = 0, LDATA = 0, pos = 0, count = 0;
+
+void initPIT(void);         // Initialise PIT module
+void init_bitIO(void);      // Initialise bit IO modules
+void initPWM(void);         // Initialise PWM for encoder clock
+void initPWM_motor(void);   // Initialise PWM for motor
+
+void main(void)
+{
+  init_bitIO();             // Initialise bit IO modules
+  initPWM();                // Initialise PWM for encoder clock
+  initPWM_motor();          // Initialise PWM for motor  
+  
+  initPIT();                // Initialise PIT module
+
+  EnableInterrupts;
+
+  for( ; ; )
+  {
+    _FEED_COP();
+  }
+}
+
+// Initialise PIT module
+void initPIT(void)
+{
+  PITCFLMT_PITE  =   1;      // Enable PIT module
+  PITMTLD0       = 199;      // Set PIT time-out period to 10 ms.
+  PITLD0         =  99;      // (PITMTLD0 + 1) * (PITLD0 + 1) / 2MHz
+  PITINTE_PINTE0 =   1;      // Enable interrupt service routine
+  PITCE_PCE0     =   1;      // Enable PIT channel 0
+}
+
+// Initialise PWM for encoder clock
+void initPWM(void)
+{
+  PWME_PWME0   =  1;        // Enable PWM channel 0
+  PWMPOL_PPOL0 =  1;        // Set polarity of PWM channel 0
+  PWMCLK_PCLK0 =  0;        // Select clock A for PWM channel 0
+  PWMPER0      = 10;        // PWM Frequency = 200 kHz
+  PWMDTY0      =  5;
+  
+}
+
+// Initialise PWM for motor
+void initPWM_motor(void)
+{
+  PWME_PWME2    =   1;       // Enable PWM channel 2
+  PWMPOL_PPOL2  =   1;       // Set polarity of PWM channel 2
+  PWMCLK_PCLK2  =   0;       // Select clock B for PWM channel 2
+  PWMPRCLK_PCKB =   2;       // Prescale clock B frequency to Bus clock/4
+  PWMPER2       = 250;       // PWM Frequency = 2kHz
+  PWMDTY2       = 100;  
+}
+
+// Initialise bit IO modules
+void init_bitIO(void)
+{
+  DDRA = 0b1111;              // Set PORT A(0-3) pins to output  
+  DDRB =      0;              // Set PORT B pins to input                               
+}
+
+// PIT service routine (10 ms)
+void interrupt 66 f_pit(void)
+{
+  count++;  
+  PITTF_PTF0 =     1;         // Clear PIT flag
+  PORTA_PA0  =     0;         // PA0 corresponds to the OE pin. Enable encoder output  
+  PORTA_PA1  =     0;         // PA1 corresponds to the SEL pin. Set to left 8 bits
+  UDATA      = PORTB;         // Encoder output (left 8 bits) read on PORT B
+  PORTA_PA1  =     1;         // PA1 corresponds to the SEL pin. Set to right 8 bits
+  LDATA      = PORTB;         // Encoder output (right 8 bits) read on PORT B
+  PORTA_PA0  =     1;         // Set OE pin to disable encoder output
+  pos = (UDATA<<8)|LDATA;     // Concatenate left and right bits to get 16-bit position value  
+}

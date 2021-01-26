@@ -1,0 +1,19 @@
+Theseus		-	The duke
+Hippolyta	-	The duke's beloved
+Egeus		-	The concerned father
+Hermia		-	The daughter of Egeus
+Demetrius	-	The man whom Egeus has consented to marry Hermia
+Lysander	-	The man whom Hermia loves
+Helena		-	The friend of Hermia who loves Demetrius
+
+Quince		-	The lead playwright
+Snug		-	The one acting the lion
+Bottom		-	The one acting Pyramus (the lover)
+Flute		-	The one acting Thisby (the beloved) in a mask
+Snout		-	The one acting Pyramus' father
+Starveling	-	The one acting Thisby's mother
+
+Puck/Robin Goodfellow
+		-	The one who does the work of the hobgoblins/The merry wanderer of the night
+Oberon		-	The fairy king
+Titania		-	The fairy queen

@@ -1,0 +1,7 @@
+%PDF-1.4
+%êÑÜè
+1 0 obj<</Type/Catalog/Pages 3 0 R/Metadata 1914 0 R/Outlines 5 0 R>>
+endobj
+2 0 obj<</ModDate(D:20071029013908+03'00')/Producer(AFPL Ghostscript 8.51)/CreationDate(D:20071029013137Z)/Title(Ghostscript wrapper for Z:\\Books\\Unsorted\\Users\\Cambridge\\madhow.pdf)/Creator(GSview)>>
+endobj
+3 0 obj<</Type/Pages/CropBox[30.6 57.6 567 748.8]/MediaBox[0 0 612 792]/Kids[4 0 R 43 0 R 46 0 R 50 0 R 57 0 R 59 0 R 61 0 R 64 0 R 69 0 R 71 0 R 73 0 R 75 0 R 77 0 R 79 0 R 82 0 R 93 0 R 95 0 R 97 0 R 7 0 R 111 0 R 117 0 R 120 0 R 123 0 R 125 0 R 9 0 R 145 0 R 150 0 R 162 0 R 165 0 R 168 0 R 171 0 R 176 0 R 178 0 R 180 0 R 183 0 R 185 0 R 187 0 R 189 0 R 191 0 R 194 0 R 196 0 R 199 0 R 201 0 R 206 0 R 209 0 R 214 0 R 217 0 R 219 0 R 223 0 R 226 0 R 229 0 R 234 0 R 236 0 R 238 0 R 241 0 R 244 0 R 246 0 R 248 0 R 250 0 R 252 0 R 255 0 R 257 0 R 260 0 R 263 0 R 266 0 R 271 0 R 273 0 R 275 0 R 279 0 R 281 0 R 286 0 R 289 0 R 291 0 R 293 0 R 295 0 R 297 0 R 300 0 R 303 0 R 305 0 R 307 0 R 309 0 R 311 0 R 317 0 R 319 0 R 321 0 R 323 0 R 325 0 R 327 0 R 329 0 R 331 0 R 33

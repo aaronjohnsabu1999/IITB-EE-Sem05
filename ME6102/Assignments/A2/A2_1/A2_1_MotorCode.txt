@@ -1,0 +1,93 @@
+#include <hidef.h>	         /* common defines and macros */
+#include "derivative.h"      /* derivative-specific definitions */
+
+int U_DATA		= 0;
+int L_DATA		= 0;
+int newDuty		= 0;
+int timeinsec	= 0; 
+int count		= 0;
+int En_Read		= 0;
+float value		= 0.00;
+
+void initPIT(void);
+void init_bitIO(void);
+void initPWM(void);
+void PWM_for_Motor(void);
+
+void main(void) {
+	init_bitIO();
+	initPWM();
+	PWM_for_Motor();
+
+	initPIT();
+  
+	PORTA_PA0=0;
+	PORTA_PA1=1;
+
+	EnableInterrupts;
+
+	for(;;){
+		_FEED_COP();
+	}
+}
+
+void initPIT(void){
+	PITCFLMT_PITE	= 1;
+	PITMTLD0		= 199;
+	PITLD0			= 9;
+	PITMUX_PMUX0	= 0;
+	PITINTE_PINTE0	= 1;
+	PITCE_PCE0		= 1;
+}
+
+void initPWM(void){
+	PWMCLK_PCLK0	= 0;
+	PWME_PWME0		= 1;
+	PWMPOL_PPOL0	= 1;
+	PWMPRCLK		= 0x00;
+	PWMDTY0			= 0x04;
+	PWMPER0			= 0x08;
+}
+
+void PWM_for_Motor(){
+	PWMCLK_PCLK5	= 0;
+	PWME_PWME5		= 1;
+	PWMPOL_PPOL5	= 1;
+	PWMPRCLK		= 0x01;
+	PWMDTY5			= 0;
+	PWMPER5			= 0xFF;
+}
+
+void init_bitIO(void){
+	DDRA = 0b11111111;
+	DDRB = 0;
+}
+
+void interrupt 66 f_pit(void){
+	PITTF_PTF0		= 1;
+	
+	PORTA_PA2		= 0;
+	PORTA_PA3		= 0;					// Enable = 0, Select Pin = 0 {SEL = PA2, OE = PA3}
+	U_DATA			= PORTB;                                                                                        
+
+	PORTA_PA2		= 1;
+	PORTA_PA3		= 0;					// Enable = 0, Select Pin = 1 {SEL = PA2, OE = PA3}
+	L_DATA			= PORTB;        
+	
+	En_Read			= (U_DATA<<8)|L_DATA;	// Combining lower byte and Upper Byte into a 16-bit binary number        
+
+	PORTA_PA2		= 0;
+	PORTA_PA3		= 1;					// Inhibit Logic Reset: Enable = 1, Select Pin = X
+	
+	count++;
+	
+	value			+= 0.001;
+	timeinsec		= ((int)value)%16;
+	if(timeinsec < 8) {
+		newDuty		= timeinsec;
+	}
+	else{
+		newDuty		= 15 - timeinsec;
+	}
+	PWMDTY5			= newDuty;
+}

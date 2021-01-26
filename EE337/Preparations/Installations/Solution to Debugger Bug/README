@@ -1,0 +1,10 @@
+If you are facing the issue
+Keil uVision keeps crashing on pressing the "start\stop debug session"
+
+Then follow these steps.
+
+1. Go to right click on the target folder (at the left pane). 
+2. Select Target options> Debug 
+3. Change the parameter to -p51 and tick the 'limit speed to Real-Time"
+
+Refer the screenshot available in the folder containing Readme file.

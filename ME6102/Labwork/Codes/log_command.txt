@@ -1,0 +1,5 @@
+DEFINE loop	= 0
+FOR loop	= 1..1000,1
+  //Change the number of data points by modifying 1000 suitably
+fprintf(log4.txt,"%d %d\n",count,En_Read) // You can add more variables if required
+ENDFOR
